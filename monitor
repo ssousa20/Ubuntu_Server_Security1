@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#This script is designed to scan for the modification of files in specific directories and help system administrators identify when root level executables are executed and dumps them into a log file for accessability.
+
+#Scan /etc/ for modifications and who made them within the last 24 hours
+sudo find /etc/ -mtime -1 -ls | awk '{print $5,$6,$8,$9,$10,$11,$12}' >> monitorlog
+#Scan /etc/ for modifications and who made them within the last 24 hours
+sudo find /bin/ -mtime -1 -ls | awk '{print $5,$6,$8,$9,$10,$11,$12}' >> monitorlog
+#Scan /etc/ for modifications and who made them within the last 24 hours
+sudo find /lib/ -mtime -1 -ls | awk '{print $5,$6,$8,$9,$10,$11,$12}' >> monitorlog
+#Scan /etc/ for modifications and who made them within the last 24 hours
+sudo find /root/ -mtime -1 -ls | awk '{print $5,$6,$8,$9,$10,$11,$12}' >> monitorlog
+#Scan /etc/ for modifications and who made them within the last 24 hours
+sudo find /boot/ -mtime -1 -ls | awk '{print $5,$6,$8,$9,$10,$11,$12}' >> monitorlog
+
+
+

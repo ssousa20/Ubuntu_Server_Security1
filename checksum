@@ -1,0 +1,71 @@
+#!/bin/bash
+###This is a checksum script. Used for determining and comparing the hash values of desired directories
+
+#Logged hashed values that will be used for comparison. These will need to be updated upon first setup or if the location changes.
+
+logged_etchash=$(sudo cat /home/steve/security/hash/etchash)
+logged_binhash=$(sudo cat /home/steve/security/hash/binhash)
+logged_libhash=$(sudo cat /home/steve/security/hash/libhash)
+logged_roothash=$(sudo cat /home/steve/security/hash/roothash)
+logged_boothash=$(sudo cat /home/steve/security/hash/boothash)
+
+#Real time hash values of the /etc/ and /var/log directories
+
+current_etchash=$(sudo find /etc/ -type f -exec  md5sum {} \; | md5sum | awk '{print $1}') 
+current_binhash=$(sudo find /bin/ -type f -exec  md5sum {} \; | md5sum | awk '{print $1}')
+current_libhash=$(sudo find /lib/ -type f -exec  md5sum {} \; | md5sum | awk '{print $1}')
+current_roothash=$(sudo find /root/ -type f -exec  md5sum {} \; | md5sum | awk '{print $1}')
+current_boothash=$(sudo find /boot/ -type f -exec  md5sum {} \; | md5sum | awk '{print $1}')
+
+#Auditor can compare logged vs current hash to 
+echo "Logged /etc/ hash" $logged_etchash
+echo "Current /etc/ hash" $current_etchash
+
+if [ $logged_etchash = $current_etchash ]  
+then
+	echo "Pass"
+else
+	echo "Fail"
+fi
+
+echo "Logged /bin/ hash" $logged_binhash
+echo "Current /bin/ hash" $current_binhash
+
+if [ $logged_binhash = $current_binhash ]  
+then
+	echo "Pass"
+else
+	echo "Fail"
+fi
+
+echo "Logged /lib/ hash" $logged_libhash
+echo "Current /lib/ hash" $current_libhash
+
+if [ $logged_libhash = $current_libhash ]  
+then
+	echo "Pass"
+else
+	echo "Fail"
+fi
+
+echo "Logged /root/ hash" $logged_roothash
+echo "Current /root/ hash" $current_roothash
+
+if [ $logged_roothash = $current_roothash ]  
+then
+	echo "Pass"
+else
+	echo "Fail"
+fi
+
+echo "Logged /boot/ hash" $logged_boothash
+echo "Current /boot/ hash" $current_boothash
+
+if [ $logged_boothash = $current_boothash ]  
+then
+	echo "Pass"
+else
+	echo "Fail"
+fi
+
+
